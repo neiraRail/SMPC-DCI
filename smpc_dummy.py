@@ -3,32 +3,37 @@ import SMPC
 
 from utils import generateShares
 
-size = 4
  
 class Dummy(SMPC.Dummy):
     def __init__(self):
-       self.partes= []
-       self.shares = generateShares(size)
-       self.partes.append(self.shares[2])
+       self.parts= []
+       self.shares = generateShares(1)
+       self.parts.append(self.shares[2])
 
     def entregarDesdeServer(self, parte, current=None):
+        # Reset state of dummy
         self.__init__()
-        # print("Servidor envía ", parte, " a dummy")
-        self.partes.append(parte)
+        
+        # Saves server's part
+        self.parts.append(parte)
+
+        # Returns server's corresponding share
         return self.shares[1]
     
-    def entregarDesdeCliente(self, parte, current=None):
-        # print("Cliente envía ", parte, " a dummy")
-        self.partes.append(parte)
+    def entregarDesdeCliente(self, part, current=None):
+        # Saves client's part
+        self.parts.append(part)
+
+        # Sends dummy's sum to server
         with Ice.initialize(sys.argv) as communicator:
-            base = communicator.stringToProxy("Servidor:default -p 10000")
-            servidor = SMPC.ServidorPrx.checkedCast(base)
-            if not servidor:
+            base = communicator.stringToProxy("Server:default -p 10000")
+            server = SMPC.ServidorPrx.checkedCast(base)
+            if not server:
                 raise RuntimeError("Invalid proxy")
-            servidor.entregarDesdeDummy(sum(self.partes))
-            # print("Servidor no envia nada a dummy")
-            
-        return (self.shares[0], sum(self.partes)) #parte propia y suma
+            server.entregarDesdeDummy(sum(self.parts))
+
+        # Returns client's corresponding share and sum
+        return (self.shares[0], sum(self.parts)) 
     
         
  

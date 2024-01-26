@@ -3,59 +3,56 @@ import SMPC
 
 from utils import generateShares
 
-size = 4
+dummy_proxy = "Dummy:default -p 10001"
 
 original = bytearray()
 message = bytearray()
  
 class Servidor(SMPC.Servidor):
     def __init__(self):
-       self.partes= []
-       self.sumas = []
-       self.shares = generateShares(size)
+       self.parts= []
+       self.sums = []
+       self.shares = generateShares(1)
 
-       self.partes.append(self.shares[1])
+       self.parts.append(self.shares[1])
 
-    def entregarDesdeCliente(self, parte, current=None):
-        # print("Cliente envia ", parte, " a servidor")
-        self.partes.append(parte)
+    def entregarDesdeCliente(self, part, current=None):
+        # Saves client's part
+        self.parts.append(part)
+
+        # Message from server to dummy
         with Ice.initialize(sys.argv) as communicator:
-            base = communicator.stringToProxy("Dummy:default -p 10001")
+            base = communicator.stringToProxy(dummy_proxy)
             dummy = SMPC.DummyPrx.checkedCast(base)
             if not dummy:
                 raise RuntimeError("Invalid proxy")
-            print(self.shares[2])
+            # Dummy returns the server's corresponding share
             parte_dummy = dummy.entregarDesdeServer(self.shares[2])
-            # print("Dummy envia ", parte_dummy, " a servidor")
-            self.partes.append(parte_dummy)
-            self.sumas.append(sum(self.partes))
+            self.parts.append(parte_dummy)
+            self.sums.append(sum(self.parts))
         
-        return (self.shares[0], sum(self.partes))
+        # Returns client's corresponding share and sum
+        return (self.shares[0], sum(self.parts))
 
     def entregarDesdeDummy(self, suma, current=None):
-        # print("Dummy envia ", suma, " a servidor")
-        self.sumas.append(suma)
+        self.sums.append(suma)
     
     def finalizar(self, suma, payload, current=None):
         global message
         global original
-        # print("Cliente envia ", suma, " a servidor")
-        self.sumas.append(suma)
-        # print("Suma: ", sum(self.sumas))
-        # print("Mensaje: ", payload)
-        # print("Mensaje: ", payload^(sum(self.sumas)%255))
+        self.sums.append(suma)
 
         original.append(payload)
-        message.append(payload^(sum(self.sumas)%255))
+        message.append(payload^(sum(self.sums)%255))
         print(original)
         print(message)
-        # reset
+        # Reset state of server
         self.__init__()
         
  
 with Ice.initialize(sys.argv) as communicator:
-    adapter = communicator.createObjectAdapterWithEndpoints("Servidor", "default -p 10000")
+    adapter = communicator.createObjectAdapterWithEndpoints("Server", "default -p 10000")
     object = Servidor()
-    adapter.add(object, communicator.stringToIdentity("Servidor"))
+    adapter.add(object, communicator.stringToIdentity("Server"))
     adapter.activate()
     communicator.waitForShutdown()

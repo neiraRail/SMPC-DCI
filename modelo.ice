@@ -1,20 +1,20 @@
 module SMPC{
     interface Servidor {
-        void entregarDesdeCliente(int parte, 
-            out int parteServer, 
-            out int sumaServer
+        void messageFromClient(int part, 
+            out int partServer, 
+            out int sumServer
         );
-        void entregarDesdeDummy(int suma);
-        void finalizar(int suma, byte payload);
+        void messageFromDummy(int sum);
+        void finalize(int sum, byte message);
     }
 
     interface Dummy {
-        void entregarDesdeCliente(int parte, 
-            out int parteDummy, 
-            out int sumaDummy
+        void messageFromClient(int part, 
+            out int partDummy, 
+            out int sumDummy
         );
-        void entregarDesdeServer(int parte, 
-            out int parteDummy
+        void messageFromServer(int part, 
+            out int partDummy
         );
     }
 }
