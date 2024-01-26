@@ -16,7 +16,7 @@ def sendByte(byte):
         
         # First message from client to server
         base = communicator.stringToProxy(server_proxy)
-        server = SMPC.ServidorPrx.checkedCast(base)
+        server = SMPC.ServerPrx.checkedCast(base)
         if not server:
             raise RuntimeError("Invalid proxy")
         # Server returns the client's corresponding share and its sum

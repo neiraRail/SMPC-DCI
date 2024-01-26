@@ -8,7 +8,7 @@ dummy_proxy = "Dummy:default -p 10001"
 original = bytearray()
 message = bytearray()
  
-class Servidor(SMPC.Servidor):
+class Servidor(SMPC.Server):
     def __init__(self):
        self.parts= []
        self.sums = []

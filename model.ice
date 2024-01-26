@@ -1,5 +1,5 @@
 module SMPC{
-    interface Servidor {
+    interface Server {
         void messageFromClient(int part, 
             out int partServer, 
             out int sumServer

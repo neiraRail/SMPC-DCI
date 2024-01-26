@@ -27,7 +27,7 @@ class Dummy(SMPC.Dummy):
         # Sends dummy's sum to server
         with Ice.initialize(sys.argv) as communicator:
             base = communicator.stringToProxy("Server:default -p 10000")
-            server = SMPC.ServidorPrx.checkedCast(base)
+            server = SMPC.ServerPrx.checkedCast(base)
             if not server:
                 raise RuntimeError("Invalid proxy")
             server.messageFromDummy(sum(self.parts))
