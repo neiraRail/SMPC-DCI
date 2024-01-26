@@ -16,7 +16,7 @@ class Servidor(SMPC.Servidor):
 
        self.parts.append(self.shares[1])
 
-    def entregarDesdeCliente(self, part, current=None):
+    def messageFromClient(self, part, current=None):
         # Saves client's part
         self.parts.append(part)
 
@@ -27,20 +27,20 @@ class Servidor(SMPC.Servidor):
             if not dummy:
                 raise RuntimeError("Invalid proxy")
             # Dummy returns the server's corresponding share
-            parte_dummy = dummy.entregarDesdeServer(self.shares[2])
+            parte_dummy = dummy.messageFromServer(self.shares[2])
             self.parts.append(parte_dummy)
             self.sums.append(sum(self.parts))
         
         # Returns client's corresponding share and sum
         return (self.shares[0], sum(self.parts))
 
-    def entregarDesdeDummy(self, suma, current=None):
-        self.sums.append(suma)
+    def messageFromDummy(self, sumDummy, current=None):
+        self.sums.append(sumDummy)
     
-    def finalizar(self, suma, payload, current=None):
+    def finalize(self, sumClient, payload, current=None):
         global message
         global original
-        self.sums.append(suma)
+        self.sums.append(sumClient)
 
         original.append(payload)
         message.append(payload^(sum(self.sums)%255))

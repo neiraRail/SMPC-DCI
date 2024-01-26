@@ -4,8 +4,8 @@ module SMPC{
             out int partServer, 
             out int sumServer
         );
-        void messageFromDummy(int sum);
-        void finalize(int sum, byte message);
+        void messageFromDummy(int sumDummy);
+        void finalize(int sumClient, byte message);
     }
 
     interface Dummy {

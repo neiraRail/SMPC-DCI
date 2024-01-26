@@ -27,41 +27,41 @@ if 'ServidorPrx' not in _M_SMPC.__dict__:
     _M_SMPC.ServidorPrx = Ice.createTempClass()
     class ServidorPrx(Ice.ObjectPrx):
 
-        def entregarDesdeCliente(self, parte, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeCliente.invoke(self, ((parte, ), context))
+        def messageFromClient(self, part, context=None):
+            return _M_SMPC.Servidor._op_messageFromClient.invoke(self, ((part, ), context))
 
-        def entregarDesdeClienteAsync(self, parte, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeCliente.invokeAsync(self, ((parte, ), context))
+        def messageFromClientAsync(self, part, context=None):
+            return _M_SMPC.Servidor._op_messageFromClient.invokeAsync(self, ((part, ), context))
 
-        def begin_entregarDesdeCliente(self, parte, _response=None, _ex=None, _sent=None, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeCliente.begin(self, ((parte, ), _response, _ex, _sent, context))
+        def begin_messageFromClient(self, part, _response=None, _ex=None, _sent=None, context=None):
+            return _M_SMPC.Servidor._op_messageFromClient.begin(self, ((part, ), _response, _ex, _sent, context))
 
-        def end_entregarDesdeCliente(self, _r):
-            return _M_SMPC.Servidor._op_entregarDesdeCliente.end(self, _r)
+        def end_messageFromClient(self, _r):
+            return _M_SMPC.Servidor._op_messageFromClient.end(self, _r)
 
-        def entregarDesdeDummy(self, suma, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeDummy.invoke(self, ((suma, ), context))
+        def messageFromDummy(self, sumDummy, context=None):
+            return _M_SMPC.Servidor._op_messageFromDummy.invoke(self, ((sumDummy, ), context))
 
-        def entregarDesdeDummyAsync(self, suma, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeDummy.invokeAsync(self, ((suma, ), context))
+        def messageFromDummyAsync(self, sumDummy, context=None):
+            return _M_SMPC.Servidor._op_messageFromDummy.invokeAsync(self, ((sumDummy, ), context))
 
-        def begin_entregarDesdeDummy(self, suma, _response=None, _ex=None, _sent=None, context=None):
-            return _M_SMPC.Servidor._op_entregarDesdeDummy.begin(self, ((suma, ), _response, _ex, _sent, context))
+        def begin_messageFromDummy(self, sumDummy, _response=None, _ex=None, _sent=None, context=None):
+            return _M_SMPC.Servidor._op_messageFromDummy.begin(self, ((sumDummy, ), _response, _ex, _sent, context))
 
-        def end_entregarDesdeDummy(self, _r):
-            return _M_SMPC.Servidor._op_entregarDesdeDummy.end(self, _r)
+        def end_messageFromDummy(self, _r):
+            return _M_SMPC.Servidor._op_messageFromDummy.end(self, _r)
 
-        def finalizar(self, suma, payload, context=None):
-            return _M_SMPC.Servidor._op_finalizar.invoke(self, ((suma, payload), context))
+        def finalize(self, sumClient, message, context=None):
+            return _M_SMPC.Servidor._op_finalize.invoke(self, ((sumClient, message), context))
 
-        def finalizarAsync(self, suma, payload, context=None):
-            return _M_SMPC.Servidor._op_finalizar.invokeAsync(self, ((suma, payload), context))
+        def finalizeAsync(self, sumClient, message, context=None):
+            return _M_SMPC.Servidor._op_finalize.invokeAsync(self, ((sumClient, message), context))
 
-        def begin_finalizar(self, suma, payload, _response=None, _ex=None, _sent=None, context=None):
-            return _M_SMPC.Servidor._op_finalizar.begin(self, ((suma, payload), _response, _ex, _sent, context))
+        def begin_finalize(self, sumClient, message, _response=None, _ex=None, _sent=None, context=None):
+            return _M_SMPC.Servidor._op_finalize.begin(self, ((sumClient, message), _response, _ex, _sent, context))
 
-        def end_finalizar(self, _r):
-            return _M_SMPC.Servidor._op_finalizar.end(self, _r)
+        def end_finalize(self, _r):
+            return _M_SMPC.Servidor._op_finalize.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -92,14 +92,14 @@ if 'ServidorPrx' not in _M_SMPC.__dict__:
         def ice_staticId():
             return '::SMPC::Servidor'
 
-        def entregarDesdeCliente(self, parte, current=None):
-            raise NotImplementedError("servant method 'entregarDesdeCliente' not implemented")
+        def messageFromClient(self, part, current=None):
+            raise NotImplementedError("servant method 'messageFromClient' not implemented")
 
-        def entregarDesdeDummy(self, suma, current=None):
-            raise NotImplementedError("servant method 'entregarDesdeDummy' not implemented")
+        def messageFromDummy(self, sumDummy, current=None):
+            raise NotImplementedError("servant method 'messageFromDummy' not implemented")
 
-        def finalizar(self, suma, payload, current=None):
-            raise NotImplementedError("servant method 'finalizar' not implemented")
+        def finalize(self, sumClient, message, current=None):
+            raise NotImplementedError("servant method 'finalize' not implemented")
 
         def __str__(self):
             return IcePy.stringify(self, _M_SMPC._t_ServidorDisp)
@@ -109,9 +109,9 @@ if 'ServidorPrx' not in _M_SMPC.__dict__:
     _M_SMPC._t_ServidorDisp = IcePy.defineClass('::SMPC::Servidor', Servidor, (), None, ())
     Servidor._ice_type = _M_SMPC._t_ServidorDisp
 
-    Servidor._op_entregarDesdeCliente = IcePy.Operation('entregarDesdeCliente', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0), ((), IcePy._t_int, False, 0)), None, ())
-    Servidor._op_entregarDesdeDummy = IcePy.Operation('entregarDesdeDummy', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), None, ())
-    Servidor._op_finalizar = IcePy.Operation('finalizar', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0), ((), IcePy._t_byte, False, 0)), (), None, ())
+    Servidor._op_messageFromClient = IcePy.Operation('messageFromClient', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0), ((), IcePy._t_int, False, 0)), None, ())
+    Servidor._op_messageFromDummy = IcePy.Operation('messageFromDummy', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (), None, ())
+    Servidor._op_finalize = IcePy.Operation('finalize', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0), ((), IcePy._t_byte, False, 0)), (), None, ())
 
     _M_SMPC.Servidor = Servidor
     del Servidor
@@ -122,29 +122,29 @@ if 'DummyPrx' not in _M_SMPC.__dict__:
     _M_SMPC.DummyPrx = Ice.createTempClass()
     class DummyPrx(Ice.ObjectPrx):
 
-        def entregarDesdeCliente(self, parte, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeCliente.invoke(self, ((parte, ), context))
+        def messageFromClient(self, part, context=None):
+            return _M_SMPC.Dummy._op_messageFromClient.invoke(self, ((part, ), context))
 
-        def entregarDesdeClienteAsync(self, parte, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeCliente.invokeAsync(self, ((parte, ), context))
+        def messageFromClientAsync(self, part, context=None):
+            return _M_SMPC.Dummy._op_messageFromClient.invokeAsync(self, ((part, ), context))
 
-        def begin_entregarDesdeCliente(self, parte, _response=None, _ex=None, _sent=None, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeCliente.begin(self, ((parte, ), _response, _ex, _sent, context))
+        def begin_messageFromClient(self, part, _response=None, _ex=None, _sent=None, context=None):
+            return _M_SMPC.Dummy._op_messageFromClient.begin(self, ((part, ), _response, _ex, _sent, context))
 
-        def end_entregarDesdeCliente(self, _r):
-            return _M_SMPC.Dummy._op_entregarDesdeCliente.end(self, _r)
+        def end_messageFromClient(self, _r):
+            return _M_SMPC.Dummy._op_messageFromClient.end(self, _r)
 
-        def entregarDesdeServer(self, parte, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeServer.invoke(self, ((parte, ), context))
+        def messageFromServer(self, part, context=None):
+            return _M_SMPC.Dummy._op_messageFromServer.invoke(self, ((part, ), context))
 
-        def entregarDesdeServerAsync(self, parte, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeServer.invokeAsync(self, ((parte, ), context))
+        def messageFromServerAsync(self, part, context=None):
+            return _M_SMPC.Dummy._op_messageFromServer.invokeAsync(self, ((part, ), context))
 
-        def begin_entregarDesdeServer(self, parte, _response=None, _ex=None, _sent=None, context=None):
-            return _M_SMPC.Dummy._op_entregarDesdeServer.begin(self, ((parte, ), _response, _ex, _sent, context))
+        def begin_messageFromServer(self, part, _response=None, _ex=None, _sent=None, context=None):
+            return _M_SMPC.Dummy._op_messageFromServer.begin(self, ((part, ), _response, _ex, _sent, context))
 
-        def end_entregarDesdeServer(self, _r):
-            return _M_SMPC.Dummy._op_entregarDesdeServer.end(self, _r)
+        def end_messageFromServer(self, _r):
+            return _M_SMPC.Dummy._op_messageFromServer.end(self, _r)
 
         @staticmethod
         def checkedCast(proxy, facetOrContext=None, context=None):
@@ -175,11 +175,11 @@ if 'DummyPrx' not in _M_SMPC.__dict__:
         def ice_staticId():
             return '::SMPC::Dummy'
 
-        def entregarDesdeCliente(self, parte, current=None):
-            raise NotImplementedError("servant method 'entregarDesdeCliente' not implemented")
+        def messageFromClient(self, part, current=None):
+            raise NotImplementedError("servant method 'messageFromClient' not implemented")
 
-        def entregarDesdeServer(self, parte, current=None):
-            raise NotImplementedError("servant method 'entregarDesdeServer' not implemented")
+        def messageFromServer(self, part, current=None):
+            raise NotImplementedError("servant method 'messageFromServer' not implemented")
 
         def __str__(self):
             return IcePy.stringify(self, _M_SMPC._t_DummyDisp)
@@ -189,8 +189,8 @@ if 'DummyPrx' not in _M_SMPC.__dict__:
     _M_SMPC._t_DummyDisp = IcePy.defineClass('::SMPC::Dummy', Dummy, (), None, ())
     Dummy._ice_type = _M_SMPC._t_DummyDisp
 
-    Dummy._op_entregarDesdeCliente = IcePy.Operation('entregarDesdeCliente', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0), ((), IcePy._t_int, False, 0)), None, ())
-    Dummy._op_entregarDesdeServer = IcePy.Operation('entregarDesdeServer', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0),), None, ())
+    Dummy._op_messageFromClient = IcePy.Operation('messageFromClient', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0), ((), IcePy._t_int, False, 0)), None, ())
+    Dummy._op_messageFromServer = IcePy.Operation('messageFromServer', Ice.OperationMode.Normal, Ice.OperationMode.Normal, False, None, (), (((), IcePy._t_int, False, 0),), (((), IcePy._t_int, False, 0),), None, ())
 
     _M_SMPC.Dummy = Dummy
     del Dummy

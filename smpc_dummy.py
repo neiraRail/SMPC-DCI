@@ -10,17 +10,17 @@ class Dummy(SMPC.Dummy):
        self.shares = generateShares(1)
        self.parts.append(self.shares[2])
 
-    def entregarDesdeServer(self, parte, current=None):
+    def messageFromServer(self, part, current=None):
         # Reset state of dummy
         self.__init__()
         
         # Saves server's part
-        self.parts.append(parte)
+        self.parts.append(part)
 
         # Returns server's corresponding share
         return self.shares[1]
     
-    def entregarDesdeCliente(self, part, current=None):
+    def messageFromClient(self, part, current=None):
         # Saves client's part
         self.parts.append(part)
 
@@ -30,7 +30,7 @@ class Dummy(SMPC.Dummy):
             server = SMPC.ServidorPrx.checkedCast(base)
             if not server:
                 raise RuntimeError("Invalid proxy")
-            server.entregarDesdeDummy(sum(self.parts))
+            server.messageFromDummy(sum(self.parts))
 
         # Returns client's corresponding share and sum
         return (self.shares[0], sum(self.parts)) 
